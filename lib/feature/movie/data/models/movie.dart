@@ -1,0 +1,72 @@
+import 'package:movie_watch_list/feature/movie/domain/entities/movie.dart';
+
+class MovieModel extends MovieEntity {
+  const MovieModel(
+    int id, {
+    String? title,
+    String? poster,
+    String? year,
+    String? rated,
+    String? released,
+    String? runtime,
+    String? director,
+    String? writer,
+    String? actors,
+    String? plot,
+    String? country,
+    String? awards,
+    String? metaScore,
+    String? imdbRating,
+    String? imdbVotes,
+    String? imdbId,
+    String? type,
+    String? genres,
+    String? images,
+  }) : super(
+          id,
+          title: title,
+          poster: poster,
+          year: year,
+          rated: rated,
+          released: released,
+          runtime: runtime,
+          director: director,
+          writer: writer,
+          actors: actors,
+          plot: plot,
+          country: country,
+          awards: awards,
+          metaScore: metaScore,
+          imdbRating: imdbRating,
+          imdbVotes: imdbVotes,
+          imdbId: imdbId,
+          type: type,
+          genres: genres,
+          images: images,
+        );
+
+  factory MovieModel.fromJson(Map<String, dynamic> map) {
+    return MovieModel(
+      map['id'],
+      title: map['title'],
+      poster: map['poster'],
+      year: map['year'],
+      rated: map['rated'],
+      released: map['released'],
+      runtime: map['runtime'],
+      director: map['director'],
+      writer: map['writer'],
+      actors: map['actors'],
+      plot: map['plot'],
+      country: map['country'],
+      awards: map['awards'],
+      metaScore: map['metascore'],
+      imdbRating: map['imdb_rating'],
+      imdbVotes: map['imdb_votes'],
+      imdbId: map['imdb_id'],
+      type: map['type'],
+      genres: map['genres'],
+      images: map['images'],
+    );
+  }
+}

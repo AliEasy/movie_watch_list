@@ -5,9 +5,9 @@ import 'package:movie_watch_list/config/color/app_color.dart';
 import 'package:movie_watch_list/configureDependencies.dart';
 import 'package:movie_watch_list/core/widgets/error.dart';
 import 'package:movie_watch_list/feature/movie/domain/entities/movie.dart';
-import 'package:movie_watch_list/feature/movie/presentation/bloc/movie/remote/remote_movie_bloc.dart';
-import 'package:movie_watch_list/feature/movie/presentation/bloc/movie/remote/remote_movie_event.dart';
-import 'package:movie_watch_list/feature/movie/presentation/bloc/movie/remote/remote_movie_state.dart';
+import 'package:movie_watch_list/feature/movie/presentation/bloc/movie_list/movie_list_bloc.dart';
+import 'package:movie_watch_list/feature/movie/presentation/bloc/movie_list/movie_list_event.dart';
+import 'package:movie_watch_list/feature/movie/presentation/bloc/movie_list/movie_list_state.dart';
 import 'package:movie_watch_list/feature/movie/presentation/widgets/movie_card.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -25,13 +25,13 @@ class MovieListPage extends StatelessWidget {
       ),
       body: BlocProvider(
         create: (context) {
-          var bloc = getIt<RemoteMovieBloc>();
-          bloc.add(const GetMovie());
+          var bloc = getIt<MovieListBloc>();
+          bloc.add(const GetMovieListEvent());
           return bloc;
         },
-        child: BlocBuilder<RemoteMovieBloc, RemoteMovieState>(
+        child: BlocBuilder<MovieListBloc, MovieListState>(
           builder: (context, state) {
-            if (state is RemoteMovieLoading) {
+            if (state is MovieListLoading) {
               return Shimmer.fromColors(
                 baseColor: shimmerBaseColor,
                 highlightColor: shimmerHighlightColor,
@@ -57,18 +57,18 @@ class MovieListPage extends StatelessWidget {
                   ),
                 ),
               );
-            } else if (state is RemoteMovieError) {
+            } else if (state is MovieListError) {
               return CustomErrorWidget(
                 exception: state.error,
                 retry: () {
-                  context.read<RemoteMovieBloc>().add(const GetMovie());
+                  context.read<MovieListBloc>().add(const GetMovieListEvent());
                 },
               );
             } else {
               List<MovieEntity> movieList = state.data!.data;
               return RefreshIndicator(
                 onRefresh: () async {
-                  context.read<RemoteMovieBloc>().add(const GetMovie());
+                  context.read<MovieListBloc>().add(const GetMovieListEvent());
                 },
                 child: AnimationLimiter(
                   child: ListView.builder(

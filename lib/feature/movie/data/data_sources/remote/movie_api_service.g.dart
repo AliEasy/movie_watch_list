@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'movies_api_service.dart';
+part of 'movie_api_service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'movies_api_service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _MoviesApiService implements MoviesApiService {
-  _MoviesApiService(
+class _MovieApiService implements MovieApiService {
+  _MovieApiService(
     this._dio, {
     this.baseUrl,
   }) {
@@ -21,7 +21,7 @@ class _MoviesApiService implements MoviesApiService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<ListDataModel>> getMovies({int page = 1}) async {
+  Future<HttpResponse<ListDataModel>> getMovieList({int page = 1}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'page': page};
     final _headers = <String, dynamic>{};

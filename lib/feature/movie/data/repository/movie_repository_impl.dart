@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:movie_watch_list/core/resources/data_state.dart';
 import 'package:movie_watch_list/feature/movie/data/data_sources/remote/movies_api_service.dart';
 import 'package:movie_watch_list/feature/movie/data/models/list_data.dart';
 import 'package:movie_watch_list/feature/movie/domain/repository/movie_repository.dart';
 
+@Injectable(as: MovieRepository)
 class MovieRepositoryImpl implements MovieRepository {
   final MoviesApiService _moviesApiService;
 

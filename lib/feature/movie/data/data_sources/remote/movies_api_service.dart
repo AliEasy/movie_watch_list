@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:movie_watch_list/core/constants/constants.dart';
 import 'package:movie_watch_list/feature/movie/data/models/list_data.dart';
 import 'package:dio/dio.dart';
@@ -5,8 +6,11 @@ import 'package:retrofit/retrofit.dart';
 
 part 'movies_api_service.g.dart';
 
+@injectable
 @RestApi(baseUrl: moviesApiBaseURL)
 abstract class MoviesApiService {
+
+  @factoryMethod
   factory MoviesApiService(Dio dio) = _MoviesApiService;
 
   @GET('/api/v1/movies')

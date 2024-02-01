@@ -65,8 +65,8 @@ class MovieModel extends MovieEntity {
       imdbVotes: map['imdb_votes'],
       imdbId: map['imdb_id'],
       type: map['type'],
-      genres: map['genres'],
-      images: map['images'],
+      // genres: map['genres'],
+      // images: map['images'],
     );
   }
 }

@@ -3,20 +3,20 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:movie_watch_list/core/resources/data_state.dart';
-import 'package:movie_watch_list/feature/movie/data/data_sources/remote/movies_api_service.dart';
+import 'package:movie_watch_list/feature/movie/data/data_sources/remote/movie_api_service.dart';
 import 'package:movie_watch_list/feature/movie/data/models/list_data.dart';
 import 'package:movie_watch_list/feature/movie/domain/repository/movie_repository.dart';
 
 @Injectable(as: MovieRepository)
 class MovieRepositoryImpl implements MovieRepository {
-  final MoviesApiService _moviesApiService;
+  final MovieApiService _movieApiService;
 
-  MovieRepositoryImpl(this._moviesApiService);
+  MovieRepositoryImpl(this._movieApiService);
 
   @override
-  Future<DataState<ListDataModel>> getMovies({int page = 1}) async {
+  Future<DataState<ListDataModel>> getMovieList({int page = 1}) async {
     try {
-      var httpsResponse = await _moviesApiService.getMovies(page: page);
+      var httpsResponse = await _movieApiService.getMovieList(page: page);
 
       if (httpsResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpsResponse.data);

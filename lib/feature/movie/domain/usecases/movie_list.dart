@@ -5,13 +5,13 @@ import 'package:movie_watch_list/feature/movie/domain/entities/list_data.dart';
 import 'package:movie_watch_list/feature/movie/domain/repository/movie_repository.dart';
 
 @injectable
-class GetMovieUseCase implements UseCase<DataState<ListDataEntity>, int> {
+class MovieListUseCase implements BaseUseCaseOptionalParam<DataState<ListDataEntity>, int> {
   final MovieRepository _movieRepository;
 
-  GetMovieUseCase(this._movieRepository);
+  MovieListUseCase(this._movieRepository);
 
   @override
   Future<DataState<ListDataEntity>> call({int params = 1}) {
-    return _movieRepository.getMovies(page: params);
+    return _movieRepository.getMovieList(page: params);
   }
 }

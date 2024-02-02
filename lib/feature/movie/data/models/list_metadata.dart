@@ -1,6 +1,6 @@
-import 'package:movie_watch_list/feature/movie/domain/entities/list_metadata.dart';
+import 'package:movie_watch_list/core/resources/list_metadata.dart';
 
-class ListMetadataModel extends ListMetadataEntity {
+class ListMetadataModel extends ListMetadata {
   ListMetadataModel(
     String currentPage,
     int perPage,

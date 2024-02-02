@@ -21,13 +21,14 @@ class _MovieApiService implements MovieApiService {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<ListDataModel>> getMovieList({int page = 1}) async {
+  Future<HttpResponse<ListDataModel<MovieModel>>> getMovieList(
+      {int page = 1}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'page': page};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<ListDataModel>>(Options(
+        _setStreamType<HttpResponse<ListDataModel<MovieModel>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -43,7 +44,7 @@ class _MovieApiService implements MovieApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = ListDataModel.fromJson(_result.data!);
+    final value = ListDataModel<MovieModel>.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

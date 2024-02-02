@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:movie_watch_list/core/resources/data_state.dart';
 import 'package:movie_watch_list/feature/movie/data/data_sources/remote/movie_api_service.dart';
 import 'package:movie_watch_list/feature/movie/data/models/list_data.dart';
+import 'package:movie_watch_list/feature/movie/data/models/movie.dart';
 import 'package:movie_watch_list/feature/movie/domain/repository/movie_repository.dart';
 
 @Injectable(as: MovieRepository)
@@ -14,7 +15,7 @@ class MovieRepositoryImpl implements MovieRepository {
   MovieRepositoryImpl(this._movieApiService);
 
   @override
-  Future<DataState<ListDataModel>> getMovieList({int page = 1}) async {
+  Future<DataState<ListDataModel<MovieModel>>> getMovieList({int page = 1}) async {
     try {
       var httpsResponse = await _movieApiService.getMovieList(page: page);
 

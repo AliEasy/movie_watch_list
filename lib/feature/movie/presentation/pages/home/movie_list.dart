@@ -84,9 +84,12 @@ class MovieListPage extends StatelessWidget {
                                 loadingMore = true;
                                 int currPage =
                                     int.parse(state.data!.metadata.currentPage);
-                                context
-                                    .read<MovieListBloc>()
-                                    .add(MovieListLoadMoreEvent(currPage + 1));
+                                bool hasMoreItems =
+                                    currPage < state.data!.metadata.pageCount;
+                                if (hasMoreItems) {
+                                  context.read<MovieListBloc>().add(
+                                      MovieListLoadMoreEvent(currPage + 1));
+                                }
                               }
                             }
                             return false;

@@ -131,8 +131,8 @@ class CustomErrorWidget extends StatelessWidget {
               onPressed: () {
                 retry!();
               },
-              child: Row(
-                children: const [
+              child: const Row(
+                children: [
                   Icon(Icons.refresh_rounded),
                   SizedBox(width: 5,),
                   Text(

@@ -128,19 +128,24 @@ class MovieCard extends StatelessWidget {
                     ],
                   ),
                   Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(15),
-                                  bottomRight: Radius.circular(15))),
-                          child: Text(
-                            '${index + 1}',
-                            style: const TextStyle(color: Colors.black, fontFamily: 'Muli', fontSize: 12),
-                          ))),
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(15),
+                              bottomRight: Radius.circular(15))),
+                      child: Text(
+                        '${index + 1}',
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Muli',
+                            fontSize: 12),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

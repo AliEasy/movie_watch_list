@@ -6,6 +6,7 @@ import 'package:movie_watch_list/core/resources/data_state.dart';
 import 'package:movie_watch_list/feature/movie/data/data_sources/remote/movie_api_service.dart';
 import 'package:movie_watch_list/feature/movie/data/models/list_data.dart';
 import 'package:movie_watch_list/feature/movie/data/models/movie.dart';
+import 'package:movie_watch_list/feature/movie/domain/entities/movie.dart';
 import 'package:movie_watch_list/feature/movie/domain/repository/movie_repository.dart';
 
 @Injectable(as: MovieRepository)
@@ -15,9 +16,29 @@ class MovieRepositoryImpl implements MovieRepository {
   MovieRepositoryImpl(this._movieApiService);
 
   @override
-  Future<DataState<ListDataModel<MovieModel>>> getMovieList({int page = 1}) async {
+  Future<DataState<ListDataModel<MovieModel>>> getMovieList(
+      {int page = 1}) async {
     try {
       var httpsResponse = await _movieApiService.getMovieList(page: page);
+
+      if (httpsResponse.response.statusCode == HttpStatus.ok) {
+        return DataSuccess(httpsResponse.data);
+      } else {
+        return DataFailed(DioException(
+          error: httpsResponse.response.statusMessage,
+          response: httpsResponse.response,
+          requestOptions: httpsResponse.response.requestOptions,
+        ));
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    }
+  }
+
+  @override
+  Future<DataState<MovieEntity>> getMovieDetails(int movieId) async {
+    try {
+      var httpsResponse = await _movieApiService.getMovieDetails(movieId);
 
       if (httpsResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpsResponse.data);

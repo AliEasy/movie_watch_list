@@ -17,4 +17,9 @@ abstract class MovieApiService {
   Future<HttpResponse<ListDataModel<MovieModel>>> getMovieList({
     @Query('page') int page = 1,
   });
+
+  @GET('/api/v1/movies')
+  Future<HttpResponse<MovieModel>> getMovieDetails(
+    @Query('') int movieId,
+  );
 }

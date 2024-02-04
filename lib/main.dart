@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_watch_list/config/theme/app_theme.dart';
 import 'package:movie_watch_list/configureDependencies.dart';
-import 'package:movie_watch_list/feature/movie/presentation/pages/home/movie_list.dart';
+import 'package:movie_watch_list/feature/movie/presentation/pages/movie_list.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

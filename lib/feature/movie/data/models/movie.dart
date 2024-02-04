@@ -20,8 +20,8 @@ class MovieModel extends MovieEntity {
     String? imdbVotes,
     String? imdbId,
     String? type,
-    String? genres,
-    String? images,
+    List<String>? genres,
+    List<String>? images,
   }) : super(
           id,
           title: title,
@@ -65,8 +65,8 @@ class MovieModel extends MovieEntity {
       imdbVotes: map['imdb_votes'],
       imdbId: map['imdb_id'],
       type: map['type'],
-      // genres: map['genres'],
-      // images: map['images'],
+      genres: (map['genres'] as List).map((e) => e as String).toList(),
+      images: (map['images'] as List).map((e) => e as String).toList(),
     );
   }
 }

@@ -20,7 +20,7 @@ class MovieListPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Movie List',
-          style: TextStyle(color: black),
+          style: TextStyle(color: black, fontFamily: 'Muli'),
         ),
       ),
       body: BlocProvider(
@@ -29,7 +29,7 @@ class MovieListPage extends StatelessWidget {
           bloc.add(const GetMovieListEvent());
           return bloc;
         },
-        child: BlocBuilder<MovieListBloc, MovieListState>(
+        child: BlocBuilder<MovieListBloc, MovieListState<MovieEntity>>(
           builder: (context, state) {
             if (state is MovieListLoading) {
               return Shimmer.fromColors(
@@ -65,22 +65,72 @@ class MovieListPage extends StatelessWidget {
                 },
               );
             } else {
-              List<MovieEntity> movieList = state.data!.data;
+              List<MovieEntity>? movieList = state.data!.data;
+              bool loadingMore = false;
               return RefreshIndicator(
                 onRefresh: () async {
                   context.read<MovieListBloc>().add(const GetMovieListEvent());
                 },
-                child: AnimationLimiter(
-                  child: ListView.builder(
-                    itemCount: movieList.length,
-                    itemBuilder: (context, index) {
-                      var item = movieList[index];
-                      return MovieCard(
-                        movie: item,
-                        index: index,
-                      );
-                    },
-                  ),
+                child: Stack(
+                  children: [
+                    if (movieList.isNotEmpty)
+                      AnimationLimiter(
+                        child: NotificationListener<ScrollNotification>(
+                          onNotification: (notification) {
+                            if (state is! MovieListLoadMore) {
+                              final metrics = notification.metrics;
+                              if (metrics.pixels >= metrics.maxScrollExtent &&
+                                  !loadingMore) {
+                                loadingMore = true;
+                                int currPage =
+                                    int.parse(state.data!.metadata.currentPage);
+                                bool hasMoreItems =
+                                    currPage < state.data!.metadata.pageCount;
+                                if (hasMoreItems) {
+                                  context.read<MovieListBloc>().add(
+                                      MovieListLoadMoreEvent(currPage + 1));
+                                }
+                              }
+                            }
+                            return false;
+                          },
+                          child: ListView.builder(
+                            itemCount: movieList.length,
+                            itemBuilder: (context, index) {
+                              var item = movieList[index];
+                              return MovieCard(
+                                movie: item,
+                                index: index,
+                              );
+                            },
+                          ),
+                        ),
+                      )
+                    else
+                      const Center(
+                        child: Text(
+                          'Nothing to show',
+                          style: TextStyle(color: black, fontFamily: 'Muli'),
+                        ),
+                      ),
+                    if (state is MovieListLoadMore)
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                            top: 20,
+                            bottom: 20,
+                          ),
+                          height: 60,
+                          color: Colors.white,
+                          child: const Center(
+                              child: SizedBox(
+                                  width: 25,
+                                  height: 25,
+                                  child: CircularProgressIndicator())),
+                        ),
+                      ),
+                  ],
                 ),
               );
             }

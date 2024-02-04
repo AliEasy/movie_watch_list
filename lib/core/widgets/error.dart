@@ -31,7 +31,7 @@ class CustomErrorWidget extends StatelessWidget {
         Padding(padding: const EdgeInsets.all(25), child: finalWidget);
 
     return finalWidget;
-  } /**/
+  }
 
   Widget _connectionException() {
     return Center(

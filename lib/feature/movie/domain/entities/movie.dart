@@ -19,8 +19,8 @@ class MovieEntity extends Equatable {
   final String? imdbVotes;
   final String? imdbId;
   final String? type;
-  final String? genres;
-  final String? images;
+  final List<String>? genres;
+  final List<String>? images;
 
   const MovieEntity(
       this.id,

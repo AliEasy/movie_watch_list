@@ -65,8 +65,8 @@ class MovieModel extends MovieEntity {
       imdbVotes: map['imdb_votes'],
       imdbId: map['imdb_id'],
       type: map['type'],
-      genres: (map['genres'] as List).map((e) => e as String).toList(),
-      images: (map['images'] as List).map((e) => e as String).toList(),
+      genres: ((map['genres'] ?? []) as List).map((e) => e as String).toList(),
+      images: ((map['images'] ?? []) as List).map((e) => e as String).toList(),
     );
   }
 }
